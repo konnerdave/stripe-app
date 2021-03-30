@@ -1,0 +1,5 @@
+Django
+django-registration==3.1.1
+psycopg2
+python-decouple
+stripe

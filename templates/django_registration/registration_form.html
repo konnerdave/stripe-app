@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block extra_style %}
+  <link rel="stylesheet" href="{% static 'css/userbase/user.css' %}">
+
+{% endblock extra_style %}
+
+
+{% block main %}
+<div class="form-container">
+  <form method="POST" action="" class="form-signin text-center">
+    {% csrf_token %}
+    <img src="{% static 'images/hosting.png' %}" class="mb-4" width="100" height="100"></img>
+    <h1 class="h3 mb-3 fw-normal">Sign-up</h1>
+    <div class="form-floating">
+      <input
+          type="text"
+          name="username"
+          id="floatingUsername"
+          placeholder="Username"
+          class="form-control"
+      />
+      <label for="floatingPassword">Username</label>
+    </div>
+    <div class="form-floating">
+      <input
+      type="email"
+      name="email"
+      class="form-control"
+      id="floatingInput"
+      placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input
+      type="password"
+      name="password1"
+      class="form-control"
+      id="floatingPassword1"
+      placeholder="Password"
+      />
+      <label for="floatingPassword1">Password</label>
+    </div>
+    <div class="form-floating">
+      <input
+      type="password"
+      name="password2"
+      class="form-control"
+      id="floatingPassword2"
+      placeholder="Retype Password"
+      />
+      <label for="floatingPassword2">Retype Password</label>
+    </div>
+    <div class="checkbox mb-3">
+        <label>
+        </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-dark" type="submit">Sign-up</button>
+  </form>
+</div>
+
+{% endblock main %}

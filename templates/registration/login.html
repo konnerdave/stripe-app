@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'css/userbase/user.css' %}">
+
+{% endblock extra_style %}
+
+
+{% block main %}
+<div class="form-container">
+  <form method="POST" class="form-signin text-center">
+    {% csrf_token %}
+    <img src="{% static 'images/hosting.png' %}" class="mb-4" width="100" height="100"></img>
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input
+        type="text"
+        name="username"
+        id="floatingInput"
+        placeholder="Username"
+        class="form-control"
+      />
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        name="password"
+        id="floatingPassword"
+        placeholder="Password"
+        class="form-control"
+      />
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="checkbox mb-3">
+      <label>
+        {{ errors }}
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-dark" type="submit">Sign in</button>
+  </form>
+</div>
+
+{% endblock main %}

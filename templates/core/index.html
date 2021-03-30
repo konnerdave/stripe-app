@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block main %}
+
+{% if user.subscription.is_active %}
+<section class="container">
+  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-6 fw-normal">My Subscriptions</h1>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ plan.name }}</h5>
+        <p class="card-text">
+          Enjoy the premium services of {{ plan.name }} subscription!
+        </p>
+        <a href="{% url 'cancel-subscription' %}" class="btn btn-danger"
+          >Cancel Subscription</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="container">
+  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-6 fw-normal">Pricing</h1>
+    <p class="fs-5 text-muted">View our plans to get started!</p>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm border-dark">
+        <div class="card-header py-3 text-white bg-dark border-dark">
+          <h4 class="my-0 fw-normal">Monthly</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">
+            ${{ plan.price }}<small class="text-muted fw-light">/mo</small>
+          </h1>
+          <p class="list-unstyled mt-3 mb-4">{{ plan.description }}</p>
+          {% if user.is_authenticated %}
+          <button
+            type="button"
+            id="checkout-button"
+            class="w-100 btn btn-lg btn-success"
+          >
+            Subscribe now
+          </button>
+          {% else %}
+          <a class="w-100 btn btn-lg btn-dark" href="{% url 'login' %}"
+            >Sign in & Subscribe</a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% csrf_token %}
+
+{% endblock main %}
+
+
+{% block extra_script %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript">
+  const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]")
+    .value;
+
+  // Create an instance of the Stripe object with your publishable API key
+  var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+  var checkoutButton = document.getElementById("checkout-button");
+
+  checkoutButton.addEventListener("click", function () {
+    fetch("{% url 'checkout' plan.id %}", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        // If redirectToCheckout fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using error.message.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  });
+</script>
+
+{% endblock extra_script %}

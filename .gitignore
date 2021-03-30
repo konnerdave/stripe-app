@@ -1,0 +1,25 @@
+# Django #
+*.env
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+
+
+# Backup files # 
+*.bak
+
+
+# Unit test / coverage reports 
+*.cover
+.coverage 
+.coverage.* 
+.cache 
+.hypothesis/
+.pytest_cache/ 
+.tox/ 
+coverage.xml 
+htmlcov/ 
+nosetests.xml 

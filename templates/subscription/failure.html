@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block main %}
+<main>
+  <div class="container text-center">
+    <br>
+    <div class="alert alert-danger" role="alert">
+      Payment cancelled!
+    </div>
+    <a href="{% url 'home' %}"><span class="h4">Back To Home</span></a>
+  </div>
+</main>
+
+{% endblock main %}
