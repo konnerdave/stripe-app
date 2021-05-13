@@ -1,4 +1,8 @@
-# Django #
+# VS Code
+.vscode
+
+
+# Django
 *.env
 *.log
 *.pot
@@ -8,7 +12,7 @@ db.sqlite3
 media
 
 
-# Backup files # 
+# Backup files
 *.bak
 
 

@@ -1,5 +1,8 @@
-Django
-django-registration==3.1.1
+django==3.2.2
+django-registration==3.1.2
+djangorestframework
+django-filter  # Filtering support
+markdown       # Markdown support for the browsable API.
 psycopg2
 python-decouple
 stripe
